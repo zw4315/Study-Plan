@@ -69,6 +69,7 @@ string DayOfWeek(int d){
 
 int main() {
     int NOfWeek = 1;
+    int YuanchuangDays = 0;
     
     cout << " Hey!!!!! @_@  你从何年何月何日开始学习呢？" <<endl;
     cin >> year >> month >> date;
@@ -81,13 +82,14 @@ int main() {
     
     int sum = getDays( year, month) + date-1;
     int mode = sum%7;
-  
+    
     //cout <<endl <<"the sum is "<< sum << endl;
-   // cout <<endl <<"the mode is "<< mode << endl;
+    // cout <<endl <<"the mode is "<< mode << endl;
     
     day = mode+1;              //和周一差6天的是周日，数字是7
     cout <<"                    《"<< name <<"》"<<" 学习计划 "<<endl;
     cout <<"第 "<<NOfWeek<<" 周" <<endl;
+    
     NdaysOfMonth = nmonth( month, year);
     Xingqi = DayOfWeek(day);
     amount =((EndPosition - StartPosition)/TTimePeriod)+1;
@@ -96,6 +98,13 @@ int main() {
     int index = 0;
     int count = 0;
     int TimePeriod = 0;
+    
+    while(YuanchuangDays <((EndPosition - StartPosition)/amount+1)){
+        YuanchuangDays++;
+    }
+    
+    YuanchuangDays = YuanchuangDays;
+    cout <<YuanchuangDays<<endl;
     
     
     while( TimePeriod<TTimePeriod ){
@@ -107,32 +116,32 @@ int main() {
                 }
             }
             
-            if(index >0){                               //day 2
+            if((index >0)&&(index<YuanchuangDays+1)){                               //day 2
                 for(int i= 0; i<amount;i++){
                     Basic.push_back(Total[index-1][i]);
                 }
             }
             
-            if(index >1){                          // day 3
+            if((index >1)&&(index<YuanchuangDays+2)){                          // day 3
                 for(int i= 0; i<amount;i++){
                     Basic.push_back(Total[index-2][i]);
                 }
             }
             
-            if(index >3){                             //day 5
+            if((index >3)&&(index<YuanchuangDays+4)){                             //day 5
                 for(int i= 0; i<amount;i++){
                     Basic.push_back(Total[index-4][i]);
                 }
             }
             
-            if(index >6){                                   //day 8
+            if((index >6)&&(index<YuanchuangDays+7)){                                   //day 8
                 for(int i= 0; i<amount;i++){
                     Basic.push_back(Total[index-7][i]);
                 }
             }
             
             
-            if(index >14){                                   //day 16
+            if((index >14)&&(index<YuanchuangDays+15)){                                   //day 16
                 for(int i= 0; i<amount;i++){
                     Basic.push_back(Total[index-15][i]);
                 }
@@ -141,30 +150,37 @@ int main() {
             Total.push_back(Basic);
             Basic.clear();
             
+            vec = Total[index];
+            sort( vec.begin(), vec.end() );
+            vec.erase( unique( vec.begin(), vec.end() ), vec.end() );
             
             
-       
             
-        
+            
             if(day ==1){
                 cout <<"第 "<<NOfWeek<<" 周" <<endl;
             }
-            cout << year << "年" << month << "月" << date << "日" << "    " << Xingqi <<"    " ;
-      
+           
+            if(vec.size()>0){
+                cout << year << "年" << month << "月" << date << "日" << "    " << Xingqi <<"    " ;
+            }
             
             
             
             
-            for(int j=0; j<Total[index].size();j++){
-                vec = Total[index];
-                vec.erase( unique( vec.begin(), vec.end() ), vec.end() );
+            for(int j=0; j<vec.size();j++){
+               
                 cout << "第" <<vec[j] << "课" <<"   ";
                 count++;
                 
             }
-       
-            cout <<"    "<< "总共有 " << count <<" 课"<< endl;
-         
+            
+            if(vec.size()>0){
+                cout <<"    "<< "总共有 " << count <<" 课"<< endl;
+            }
+            
+            
+            
             count = 0;
             index++;
             day++;
@@ -179,7 +195,7 @@ int main() {
             
             Xingqi = DayOfWeek(day);
             date++;
-        
+            
         }
         
         date = 1;
