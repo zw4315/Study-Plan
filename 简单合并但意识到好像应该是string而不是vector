@@ -1,0 +1,82 @@
+#include <iostream>
+#include <vector>
+#include<sstream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+int main(){
+    
+    string Xingqi;
+    int year, month,date,day,NdaysOfMonth,pickedindex ;
+    int YMD[365][3];
+    string Dayofweek[365];
+    vector <string> content[365];
+    vector<string> element;
+    char buff[1024];
+    // --------------------------------------------------------------------------------------------------
+    ifstream in("log.txt");
+    string(s);
+    while(getline(in,s)){
+        stringstream strm(s);
+        static int i = 0;
+        strm >> year >> month >> date>> buff;
+        //cout << year << " "<<month <<" "<< date<<endl;
+        YMD[i][0] = year;
+        YMD[i][1] = month;
+        YMD[i][2] = date;
+        element.push_back(buff);
+        content[i] = element;
+        
+        element.clear();
+        i++;
+    }
+    in.close();
+    // 输入整个日历,日程到数组--------------------------------------------------------------------------------------------------
+    
+     ifstream input("input.txt");
+     input >> year >> month >> date;
+     
+     while(!input.eof()){
+     
+     //cout << year << endl;
+     input >> buff;
+     //cout <<endl<<buff<<endl;
+     element.push_back(buff);
+     
+     }
+     
+     
+     for(int i=0;i<365;i++){
+     if((YMD[i][0]==year)&&(YMD[i][1]==month)&&(YMD[i][2]== date)){
+     content[i] = element;
+     pickedindex = i;
+     }
+     }
+ //每一天的日程，日历中的日子 --------------------------------------------------------------------------------------------------
+    
+    /*
+     
+     for(int i =0;i<365;i++){
+     for(int k=0;k<content[i].size();k++){
+     
+     cout << i<< " "<<content[i][k];
+     }
+     }
+     */
+    
+    // ------------------------------------------------------------------------------------------------------------------
+    ofstream file("log3.txt");
+    
+    for(int i=0;i<365;i++){
+        for (int j=0;j<3;j++){
+            file << YMD[i][j]<<" ";
+        }
+        
+        for(int k=0;k<content[i].size();k++){
+            file << content[i][k]<<endl;
+        }
+    }
+    // 输出------------------------------------------------------------------------------------------------------------------
+    return 0;
+}
