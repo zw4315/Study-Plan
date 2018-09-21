@@ -1,0 +1,189 @@
+#include <iostream>
+#include <vector>
+#include<sstream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+int nyear(int year)//判断是平年，还是润年
+{
+    if(year%400==0||(year%4==0&&year%100!=0))
+        return 366;
+    else
+        return 365;
+}
+
+int nmonth(int m,int y)  //根据年份和月份，判断是那一个月的天数
+{
+    if(m==1||m==3||m==5||m==7||m==8||m==10||m==12)
+        return 31;
+    else if(nyear(y)==366&&m==2)
+        return 29;
+    else if(nyear(y)==365&&m==2)
+        return 28;
+    else
+        return 30;
+}
+
+int getDays(int year, int month)//输入年份和月份确定到1900年1月1日总共多少天
+{
+    int i;
+    int sum=0;
+    if(year>1900)
+        for(i=1900;i<year;i++)
+            sum+=nyear(i);
+    if(month>1)
+        for(i=1;i<month;i++)
+            sum+=nmonth(i,year);
+    
+    return sum;     //返回总共多少天；
+}
+
+string Day[7];
+string DayOfWeek(int d){
+    d = d-1;
+    Day[0] = "星期一" ;
+    Day[1] = "星期二" ;
+    Day[2] = "星期三" ;
+    Day[3] = "星期四" ;
+    Day[4] = "星期五" ;
+    Day[5] = "星期六" ;
+    Day[6] = "星期日" ;
+    return Day[d];
+}
+int main(){
+    
+    string Xingqi;
+    int year, month,date,day,NdaysOfMonth;
+    int YMD[365][3];
+    string Dayofweekkkk[365];
+    string content[365];
+    string element;
+    char buff[1024];
+    // --------------------------------------------------------------------------------------------------
+    ifstream in("初步完成.txt");
+    string(s);
+    while(getline(in,s)){
+        stringstream strm(s);
+        static int i = 0;
+        strm >> year >> month >> date>> buff;
+        //cout << year << " "<<month <<" "<< date<<endl;
+        YMD[i][0] = year;
+        YMD[i][1] = month;
+        YMD[i][2] = date;
+        element = buff;
+        content[i] = element;
+        
+        element.clear();
+        i++;
+    }
+    in.close();
+    // 输入整个日历,日程到数组--------------------------------------------------------------------------------------------------
+    
+    ifstream input("input.txt");
+    input >> year >> month >> date;
+    
+    while(!input.eof()){
+        
+        //cout << year << endl;
+        input >> buff;
+        //cout <<endl<<buff<<endl;
+        element = buff;
+        
+    }
+    
+    
+    for(int i=0;i<365;i++){
+        if((YMD[i][0]==year)&&(YMD[i][1]==month)&&(YMD[i][2]== date)){
+            content[i] = element+content[i];
+            content[i+1] =content[i+1]+element;
+            content[i+2] =content[i+2]+element;
+            content[i+4] =content[i+4]+element;
+            content[i+7] =content[i+7]+element;
+            content[i+14] =content[i+14]+element;
+          
+        }
+    }
+    //每一天的日程，日历中的日子 --------------------------------------------------------------------------------------------------
+    
+    ofstream file("初步完成.txt");
+    
+    for(int i=0;i<365;i++){
+        for (int j=0;j<3;j++){
+            file << YMD[i][j]<<" ";
+        }
+        
+        
+        file << content[i]<<endl;
+        
+    }
+// 输出------------------------------------------------------------------------------------------------------------------
+   
+    vector <string> veccontent[365];
+    for(int i=0;i<356;i++){
+        string DaliyTask = content[i];
+        istringstream ss( DaliyTask);
+        string token;
+        
+        vector<string> taskInfoVector;
+        while(getline(ss, token, '_')) {
+            taskInfoVector.push_back(token);
+        }
+        //for(int h=0;h<taskInfoVector.size();h++){
+        //    cout << taskInfoVector[h];
+       // }
+        
+       // cout <<endl;
+        veccontent[i] = taskInfoVector;
+        taskInfoVector.clear();
+    }
+// 储层单独任务------------------------------------------------------------------------------------------------------------------
+    
+    ofstream WriteTofile("更可读的日程.txt");
+   
+    
+    
+    
+    for(int i=0;i<365;i++){
+        year =YMD[i][0] ;
+        month = YMD[i][1];
+        date = YMD[i][2];
+        int sum = getDays( year, month) + date-1;
+        int mode = sum%7;
+        day = mode+1;
+        Xingqi = DayOfWeek(day);
+        Dayofweekkkk[i] = Xingqi;
+        
+        for (int j=0;j<3;j++){
+            WriteTofile << YMD[i][j];
+            if(j==0){
+                WriteTofile<<"年";
+            }
+            if(j==1){
+                WriteTofile<<"月";
+            }
+            if(j==2){
+                WriteTofile<<"日";
+            }
+        }
+        
+        WriteTofile<<" "<<Dayofweekkkk[i]<<endl;
+        
+        for(int k=0;k<veccontent[i].size();k++){
+        
+            WriteTofile<<"*"<<veccontent[i][k]<<endl;
+            
+        }
+        
+        WriteTofile<<endl<<endl<<endl;
+    }
+    
+    
+    
+    
+    
+    
+    
+     // ------------------------------------------------------------------------------------------------------------------
+    return 0;
+}
