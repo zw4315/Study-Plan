@@ -1,0 +1,39 @@
+ ofstream file("log3.txt");
+    
+    for(int i=0;i<365;i++){
+        for (int j=0;j<3;j++){
+            //cout << YMD[i][j]<<" ";
+            file << YMD[i][j]<<" ";
+            /*
+            if(j==0){
+                file <<"年";
+            }
+            if(j==1){
+                file <<"月";
+            }
+            if(j==2){
+                file <<"日";
+            }
+            */
+        }
+        
+        file <<endl;
+        for(int k=0;k<content[i].size();k++){
+            //cout <<"content["<<i <<"]" <<"= "<< content[i][k]<<endl;
+            file << content[i][k]<<" ";
+        }
+        
+        file<<endl<<endl<<endl;
+        
+        /*   if(i== pickedindex){
+         for(int k=0;k<content[i].size();k++){
+         file << content[i][k];
+         }
+         }
+         //  cout<<Dayofweek[i]<<endl;
+         //  file <<Dayofweek[i]<<endl;
+         */
+        
+        
+        
+    }
