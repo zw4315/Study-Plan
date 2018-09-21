@@ -61,7 +61,7 @@ int main(){
     string element;
     char buff[1024];
     // --------------------------------------------------------------------------------------------------
-    ifstream in("初步完成.txt");
+    ifstream in("每日任务.txt");
     string(s);
     while(getline(in,s)){
         stringstream strm(s);
@@ -101,7 +101,6 @@ int main(){
             content[i+4] =content[i+4]+element;
             content[i+7] =content[i+7]+element;
             content[i+14] =content[i+14]+element;
-            
         }
     }
     //每一天的日程，日历中的日子 --------------------------------------------------------------------------------------------------
@@ -129,17 +128,15 @@ int main(){
         while(getline(ss, token, '_')) {
             taskInfoVector.push_back(token);
         }
-        //for(int h=0;h<taskInfoVector.size();h++){
-        //    cout << taskInfoVector[h];
-        // }
+     
         
-        // cout <<endl;
+
         veccontent[i] = taskInfoVector;
         taskInfoVector.clear();
     }
     // 储层单独任务------------------------------------------------------------------------------------------------------------------
     
-    ofstream WriteTofile("视图.txt");
+    ofstream WriteTofile("更可读的日程.txt");
     
     
     
