@@ -80,9 +80,9 @@ int main() {
     
     int sum = getDays( year, month) + date-1;
     int mode = sum%7;
-  
+    
     //cout <<endl <<"the sum is "<< sum << endl;
-   // cout <<endl <<"the mode is "<< mode << endl;
+    // cout <<endl <<"the mode is "<< mode << endl;
     
     day = mode+1;              //和周一差6天的是周日，数字是7
     cout <<"                    《"<< name <<"》"<<" 学习计划 "<<endl;
@@ -181,11 +181,18 @@ int main() {
             date++;
             valid = false;
         }
-        
-        date = 1;
+       
         month++;
+        date = 1;
+        if ((month==13)&&(date==1)){
+            year++;
+            month = 1;
+        }
+        
+        
         NdaysOfMonth = nmonth( month, year);
     }
     
     return 0;
 }
+
