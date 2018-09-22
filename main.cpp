@@ -3,7 +3,7 @@
 //  schedule
 //
 //  Created by Edward WU on 2018/9/1.
-//  Copyright © 2018年 Edward WU. All rights reserved.
+//  Copyright © 2018年 Edward WU. All rights reserved.   //这个方法是学习到月底的。
 
 #include <iostream>
 #include <vector>
@@ -98,7 +98,7 @@ int main() {
     
     
     while( TimePeriod<TTimePeriod ){
-        while (date <= NdaysOfMonth) {
+        while (date <= NdaysOfMonth) {                  //date 打印到月底，如果三十号过了，学习期限还没到，就进入下一个月，不然只到月底。
             for(int i = 0; i < amount; i++){
                 Basic.push_back(StartPosition);
                 StartPosition = StartPosition+1;
@@ -165,6 +165,7 @@ int main() {
             if(valid){
                 cout <<"    "<< "总共有 " << count <<" 课"<< endl;
             }
+            
             count = 0;
             index++;
             day++;
@@ -181,7 +182,7 @@ int main() {
             date++;
             valid = false;
         }
-       
+        
         month++;
         date = 1;
         if ((month==13)&&(date==1)){
